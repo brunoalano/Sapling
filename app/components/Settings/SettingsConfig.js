@@ -29,7 +29,7 @@ export default class Config extends Component {
   }
 
   getConfigInfo() {
-    if (process.platform === 'linux' || process.platform === 'darwin') {
+    if (process.platform === 'linux') {
       fs.readFile(`${homedir}/.eccoin/eccoin.conf`, 'utf8', (err, data) => {
         if (err) {
           return console.log(err);
@@ -66,6 +66,27 @@ export default class Config extends Component {
           } else {
             this.setState({ staking: false });
             fs.appendFile('C:/ProgramData/ECC/ecc.conf', 'staking=0', 'utf8', (err) => {
+              if (err) {
+                console.log(err);
+              }
+            });
+          }
+        });
+      } else if (process.platform === 'darwin') {
+        fs.readFile(`${homedir}/Library/Application Support/eccoin/eccoin.conf`, 'utf8', (err, data) => {
+          if (err) {
+            return console.log(err);
+          }
+
+          if (/staking=[0-9]/g.test(data)) {
+            if (/staking=1/g.test(data)) {
+              this.setState({ staking: true });
+            } else {
+              this.setState({ staking: false });
+            }
+          } else {
+            this.setState({ staking: false });
+            fs.appendFile(`${homedir}/appdata/roaming/eccoin/eccoin.conf`, 'staking=0', 'utf8', (err) => {
               if (err) {
                 console.log(err);
               }
