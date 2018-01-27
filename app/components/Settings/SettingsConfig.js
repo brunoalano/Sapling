@@ -86,7 +86,7 @@ export default class Config extends Component {
             }
           } else {
             this.setState({ staking: false });
-            fs.appendFile(`${homedir}/appdata/roaming/eccoin/eccoin.conf`, 'staking=0', 'utf8', (err) => {
+            fs.appendFile(`${homedir}/Library/Application Support/eccoin/eccoin.conf`, 'staking=0', 'utf8', (err) => {
               if (err) {
                 console.log(err);
               }
