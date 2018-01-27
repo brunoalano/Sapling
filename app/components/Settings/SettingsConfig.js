@@ -29,7 +29,7 @@ export default class Config extends Component {
   }
 
   getConfigInfo() {
-    if (process.platform === 'linux') {
+    if (process.platform === 'linux' || process.platform === 'darwin') {
       fs.readFile(`${homedir}/.eccoin/eccoin.conf`, 'utf8', (err, data) => {
         if (err) {
           return console.log(err);
